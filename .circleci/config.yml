@@ -1,9 +1,7 @@
 version: 2.1
 
-# --- TEMPLATES ---
-job_templates:
-  # Template for the 27 long-running jobs (10 minutes)
-  long_sleep_job: &long_sleep_job
+jobs:
+  single_long_job:
     docker:
       - image: cimg/base:current
     resource_class: small
@@ -12,132 +10,7 @@ job_templates:
           name: "Sleep for 10 minutes"
           command: "sleep 600"
 
-  # Template for generic short jobs (we will override the time)
-  short_sleep_job: &short_sleep_job
-    docker:
-      - image: cimg/base:current
-    resource_class: small
-
-# --- JOB DEFINITIONS ---
-jobs:
-  # The 3 Short Jobs
-  job_1_60s:
-    <<: *short_sleep_job
-    steps:
-      - run:
-          name: "Short Sleep 60s"
-          command: "sleep 60"
-
-  job_2_90s:
-    <<: *short_sleep_job
-    steps:
-      - run:
-          name: "Short Sleep 90s"
-          command: "sleep 90"
-
-  job_3_120s:
-    <<: *short_sleep_job
-    steps:
-      - run:
-          name: "Short Sleep 120s"
-          command: "sleep 120"
-
-  # The 27 Long Jobs (Using the 10-minute template)
-  job_4:
-    <<: *long_sleep_job
-  job_5:
-    <<: *long_sleep_job
-  job_6:
-    <<: *long_sleep_job
-  job_7:
-    <<: *long_sleep_job
-  job_8:
-    <<: *long_sleep_job
-  job_9:
-    <<: *long_sleep_job
-  job_10:
-    <<: *long_sleep_job
-  job_11:
-    <<: *long_sleep_job
-  job_12:
-    <<: *long_sleep_job
-  job_13:
-    <<: *long_sleep_job
-  job_14:
-    <<: *long_sleep_job
-  job_15:
-    <<: *long_sleep_job
-  job_16:
-    <<: *long_sleep_job
-  job_17:
-    <<: *long_sleep_job
-  job_18:
-    <<: *long_sleep_job
-  job_19:
-    <<: *long_sleep_job
-  job_20:
-    <<: *long_sleep_job
-  job_21:
-    <<: *long_sleep_job
-  job_22:
-    <<: *long_sleep_job
-  job_23:
-    <<: *long_sleep_job
-  job_24:
-    <<: *long_sleep_job
-  job_25:
-    <<: *long_sleep_job
-  job_26:
-    <<: *long_sleep_job
-  job_27:
-    <<: *long_sleep_job
-  job_28:
-    <<: *long_sleep_job
-  job_29:
-    <<: *long_sleep_job
-  job_30:
-    <<: *long_sleep_job
-
-
-# --- WORKFLOWS ---
 workflows:
-  # Keep your original workflow logic
-  send_job_1_30:
-    when:
-      equal: [<<pipeline.project.git_url>>, https://github.com/anonymoustest03/gatest1-03]
+  job_31:
     jobs:
-      - job_1_60s
-      - job_2_90s
-      - job_3_120s
-      
-      # The 27 long jobs
-      - job_4
-      - job_5
-      - job_6
-      - job_7
-      - job_8
-      - job_9
-      - job_10
-      - job_11
-      - job_12
-      - job_13
-      - job_14
-      - job_15
-      - job_16
-      - job_17
-      - job_18
-      - job_19
-      - job_20
-      - job_21
-      - job_22
-      - job_23
-      - job_24
-      - job_25
-      - job_26
-      - job_27
-      - job_28
-      - job_29
-      - job_30
-
-      
-
+      - single_long_job
