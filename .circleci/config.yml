@@ -11,6 +11,6 @@ jobs:
           command: "sleep 600"
 
 workflows:
-  job_31:
+  job_32:
     jobs:
       - single_long_job
